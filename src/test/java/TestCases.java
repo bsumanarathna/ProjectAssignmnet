@@ -16,7 +16,7 @@ public void login(){
 }
     @Test(priority = 1)
     public void ManualModeCalculatorTestCase1() throws InterruptedException {
-        System.out.println("Test Case 01 Results........");
+        System.out.println("Test Case 01 Results.....................");
         CalculatorHomePage caclObj1 = new CalculatorHomePage(driver1);
         String startN="A";
         String endN="F";
@@ -26,16 +26,15 @@ public void login(){
         String appValue=caclObj1.findCalcValueManual();
         Thread.sleep(5000);
         DijikstraCalculator dijcal1=new DijikstraCalculator(startN,endN);
-        String dijkstraValue=dijcal1.calcDistance();
-        SoftAssert sa=new SoftAssert();
-        //sa.assertEquals(appValue,dijkstraValue,"test 1 assertion passed");
-        //sa.assertAll();
-
+        String dijkstraValue= dijcal1.calcDistance();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(appValue, dijkstraValue);
+        softAssert.assertAll();
     }
 
     @Test(priority = 2)
     public void ManualModeClearNodesTestCase2() throws InterruptedException {
-        System.out.println("Test Case 02 Results........");
+        System.out.println("Test Case 02 Results.....................");
         CalculatorHomePage caclObj2 = new CalculatorHomePage(driver1);
         caclObj2.clickClearButton();
         Thread.sleep(2000);
@@ -43,32 +42,29 @@ public void login(){
 
         @Test(priority = 3)
     public void RandomModeTestCase3() throws InterruptedException {
-            System.out.println("Test Case 03 Results........");
+            System.out.println("Test Case 03 Results.....................");
         CalculatorHomePage caclObj = new CalculatorHomePage(driver1);
         caclObj.enableRandomMode();
         String startN;
         String endN;
-          //    SoftAssert sa2=new SoftAssert();
+            SoftAssert softAssert1 = new SoftAssert();
         for (int i = 3; i <= 4; i++) {
             System.out.println("Test Case :" + i);
             startN=caclObj.findStartNode();
             endN=caclObj.findEndNode();
             caclObj.clickClacButton();
             String appCalValue=caclObj.findCalcValue();
-            DijikstraCalculator DijcalObj=new DijikstraCalculator(startN,endN);
-            String DijVal=DijikstraCalculator.calcDistance();
-            //Assert.assertEquals(appValue,calcValue,"Test case is passed");
-            Thread.sleep(5000);
+            DijikstraCalculator dijcalObj=new DijikstraCalculator(startN,endN);
+            String dijVal= DijikstraCalculator.calcDistance();
+            softAssert1.assertEquals(appCalValue, dijVal);
+            softAssert1.assertAll();
             caclObj.clickRefreshButton();
-           // sa2.assertEquals(appCalValue,DijVal,"test 1 assertion passed");
         }
- //sa2.assertAll()
+
     }
 @AfterClass
 public void tearDown()
 {
     driver1.quit();
 }
-
-
 }

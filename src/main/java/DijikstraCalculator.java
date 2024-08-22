@@ -66,7 +66,8 @@ public class DijikstraCalculator {
         }
 
         public static String calcDistance() throws InterruptedException {
-            String DijkTotal = null;
+
+            String dijkTotal = null;
 
                 // Define the graph as an adjacency list
                 Map<String, List<Node>> graph = new HashMap<>();
@@ -96,15 +97,16 @@ public class DijikstraCalculator {
                     if (key.equals(keyToFind)) {
                         System.out.println("Distance From source Node " + startNodeName + " to " + key + " from dijikstra calc: " + value);
 
-                      DijkTotal = String.valueOf(value);
-                       // assertion.assertEquals(total[1],DijkTotal,"Test case passed");
-                        break; // Exit loop if key is found
+                        dijkTotal= String.valueOf(value);
+                        // Exit loop if key is found
 
                     }
 
                 }
-    return DijkTotal;
-            }
+
+
+            return dijkTotal;
+        }
 
         }
 

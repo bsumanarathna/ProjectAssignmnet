@@ -15,22 +15,19 @@ public class CalculatorHomePage {
 
     private WebDriver driver;
 
+    //Constructor
     public CalculatorHomePage(WebDriver driver) {
         this.driver=driver;
     }
+
 //Locations in Manual Mode
     private By startDropDwnParent=By.xpath("//div[@id='fromNode']");
     private By startDropDwnChild=By.xpath("//div[@id='fromNode']//div[contains(text(),'A')]");
-
     private By endDropDwnParent=By.xpath("//div[@id='toNode']");
     private By endDropDwnChild=By.xpath("//div[@id='toNode']//div[contains(text(),'F')]");
-
-
     private By calcbuttonManual=By.xpath("//*[@id=\"root\"]/div/div[2]/div/div[2]/div/div/div[1]/div[3]/button[2]");
     private By clearButtonManual=By.xpath("//*[@id=\"root\"]/div/div[2]/div/div[2]/div/div/div[1]/div[3]/button[1]");
-
     private By findCalcValueManualApp= By.xpath("//*[@id=\"root\"]/div/div[2]/div/div[2]/div/div/div[2]/div/div/p[2]");
-
     private By dataClearedImg=By.xpath("//*[@id=\"root\"]/div/div[2]/div/div[2]/div/div/div[2]/div/img");
 
 
@@ -42,12 +39,6 @@ public class CalculatorHomePage {
     private By calcPathLoc=By.xpath("//*[@id=\"root\"]/div/div[2]/div/div[2]/div/div/div[2]/div/div/p[2]");
     private By refreshButtonLoc=By.xpath("//*[@id=\"root\"]/div/div[2]/div/div[1]/div/button/img");
 
-    //WebElement toggleSwitch = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[2]/div/div[1]/div/label/div"));
-    //WebElement startNode = driver.findElement(By.xpath("//*[@id=\"fromNode\"]"));
-    //WebElement destinationNode = driver.findElement(By.xpath("//*[@id=\"toNode\"]/div/div[1]"));
-    //WebElement calcbutton= driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[2]/div/div[2]/div/div/div[1]/div[3]/button"));
-    //WebElement calcPath = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[2]/div/div[2]/div/div/div[2]/div/div/p[2]"));
-    //WebElement refreshButton = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[2]/div/div[1]/div/button/img"));
 
        //Enable Toggle
     public void enableRandomMode() throws InterruptedException {
@@ -72,7 +63,7 @@ public class CalculatorHomePage {
     //Click Calculate button in Random Mode
     public void clickClacButton() throws InterruptedException {
         driver.findElement(calcbuttonLoc).click();
-        Thread.sleep(5000);
+        Thread.sleep(3000);
 
     }
     //Find the Calculate value in Random Mode
@@ -80,6 +71,7 @@ public class CalculatorHomePage {
         String distanceTotal = driver.findElement(calcPathLoc).getText();
         String[] total = distanceTotal.split(":", 2); // Limit to 2 parts
         System.out.println("Distance From source Node " + startNodeName + " to " + destinationNodeName + " from application calc:" + total[1]);
+        total[1] = total[1].replace(" ","");
         return total[1];
     }
  // click on Refresh button in Random Mode
@@ -92,11 +84,6 @@ public class CalculatorHomePage {
     public void startDropdownSelect(String startNode) throws InterruptedException {
         startNodeName=startNode;
         Thread.sleep(3000);
-       // WebElement startDropdownElement=driver.findElement(startNodeDropdown);
-        //Select startDropdown = new Select(startDropdownElement);
-        //startDropdown.selectByVisibleText(startNodeName);
-       // return startNodeName;
-
         WebElement fromNodeDropdown = driver.findElement(startDropDwnParent);
         fromNodeDropdown.click(); // Open the dropdown
 
@@ -111,10 +98,6 @@ public class CalculatorHomePage {
     public void endDropdownSelect(String endnode) throws InterruptedException {
         destinationNodeName= endnode;
         Thread.sleep(3000);
-       // WebElement endDropdownElement=driver.findElement(endNodeDropdown);
-        //Select endDropdown = new Select(endDropdownElement);
-        //endDropdown.selectByVisibleText(endNodeName);
-       // return endNodeName;
         // Locate and open the "To node" dropdown
         WebElement toNodeDropdown =driver.findElement(endDropDwnParent);
         toNodeDropdown.click(); // Open the dropdown
@@ -127,22 +110,26 @@ public class CalculatorHomePage {
     // click on calc button in Manual Mode
     public void clickCalcButtonManual() throws InterruptedException {
         driver.findElement(calcbuttonManual).click();
-        Thread.sleep(5000);
+        Thread.sleep(3000);
     }
 
-    // click on clear butn in Manual Mode
+    // click on clear button in Manual Mode
     public void clickClearButton() throws InterruptedException {
         driver.findElement(clearButtonManual).click();
         WebElement dataClearedImage=driver.findElement(dataClearedImg);
         if(dataClearedImage.isDisplayed())
         {
-            System.out.println("Data is cleared succesfully");
+            System.out.println("Data is cleared successfully");
     }}
+
+    //Calculate the distance in Manual Mode
     public String findCalcValueManual() throws InterruptedException {
         Thread.sleep(3000);
         String manualDistanceTotal = driver.findElement(findCalcValueManualApp).getText();
-        String[] totalManual = manualDistanceTotal.split(": ", 2); // Limit to 2 parts
+        String[] totalManual = manualDistanceTotal.split(":", 2); // Limit to 2 parts
+
         System.out.println("Distance From source Node " + startNodeName + " to " + destinationNodeName + " from application calc in Manual Mode :" + totalManual[1]);
+        totalManual[1] = totalManual[1].replace(" ","");
         return totalManual[1];
     }
 
